@@ -24,29 +24,34 @@ export default (state = initialState, action: any): State => {
     case LoginActionType.PASSWORD_ONTEXT_CHANGE:
       return {...state, password: action.payload};
     case LoginActionType.RESET_TEXT_FIELDS:
-      return {...state, username: initialState.username, password: initialState.password, error: initialState.error};
-      // case SAVE_LOGIN_USER_ERROR: {
-      //   return {
-      //     ...state,
-      //     error: 100,
-      //     isError: true,
-      //   };
-      // }
-      case LoginActionType.INVALID_USER: {
-        return {
-          ...state,
-          error: 101,
-          isError: true,
-        };
-      }
-      case LoginActionType.VALID_USER: {
-        return {
-          ...state,
-          isError: false,
-          data: action.payload,
-          isLoggedIn: true,
-        };
-      }
+      return {
+        ...state,
+        username: initialState.username,
+        password: initialState.password,
+        error: initialState.error,
+      };
+    // case SAVE_LOGIN_USER_ERROR: {
+    //   return {
+    //     ...state,
+    //     error: 100,
+    //     isError: true,
+    //   };
+    // }
+    case LoginActionType.INVALID_USER: {
+      return {
+        ...state,
+        error: 101,
+        isError: true,
+      };
+    }
+    case LoginActionType.VALID_USER: {
+      return {
+        ...state,
+        isError: false,
+        data: action.payload,
+        isLoggedIn: true,
+      };
+    }
 
     default:
       return state;

@@ -15,42 +15,7 @@ export enum LoginActionType {
   LOGIN_CLICKED = 'LOGIN_CLICKED',
 }
 
-export class LoginActions {
-  // static loginClicked(userInfo: Person) {
-  //   console.log('Login button clicked');
-  //   return (dispatch: any) => {
-  //   console.log('inside return');
-  //     getAsyncStorage(LOGGED_IN_USER)
-  //       .then(data => {
-  //         console.log('data success');
-  //         if (data) {
-  //           const user = searchUser(
-  //             JSON.parse(data),
-  //             'username',
-  //             'password',
-  //             userInfo.username,
-  //             userInfo.password,
-  //           );
-  //           if (user) {
-  //             dispatch({
-  //               type: LoginActionType.VALID_USER,
-  //               payload: user,
-  //             });
-  //           } else {
-  //             dispatch({
-  //               type: LoginActionType.INVALID_USER,
-  //             });
-  //           }
-  //         } else {
-  //           dispatch({
-  //             type: LoginActionType.INVALID_USER,
-  //           });
-  //         }
-  //       })
-  //       .catch(err => console.log('Error while get login details', err));
-  //   };
-  // }
-  
+export class LoginActions {xs
   static setUserName(username: string) {
     return {
       type: LoginActionType.USERNAME_ONTEXT_CHANGE,
@@ -63,42 +28,41 @@ export class LoginActions {
       payload: password,
     };
   }
-  static resetTextFields(){
+  static resetTextFields() {
     return {
       type: LoginActionType.RESET_TEXT_FIELDS,
-    }
+    };
   }
 }
 const loginClicked = (userInfo: Person) => {
-    return (dispatch: any) => {
-      getAsyncStorage(LOGGED_IN_USER)
-        .then(data => {
-          if (data) {
-            console.log('dataif', data);
-            const user = searchUser(
-              JSON.parse(data),
-              'username',
-              'password',
-              userInfo.username,
-              userInfo.password,
-            );
-            if (user) {
-              dispatch({
-                type: LoginActionType.VALID_USER,
-                payload: user,
-              });
-            } else {
-              dispatch({
-                type: LoginActionType.INVALID_USER,
-              });
-            }
+  return (dispatch: any) => {
+    getAsyncStorage(LOGGED_IN_USER)
+      .then(data => {
+        if (data) {
+          const user = searchUser(
+            JSON.parse(data),
+            'username',
+            'password',
+            userInfo.username,
+            userInfo.password,
+          );
+          if (user) {
+            dispatch({
+              type: LoginActionType.VALID_USER,
+              payload: user,
+            });
           } else {
             dispatch({
               type: LoginActionType.INVALID_USER,
             });
           }
-        })
-        .catch(err => console.log('Error while get login details', err));
-    };
-  }
-  export default {loginClicked};
+        } else {
+          dispatch({
+            type: LoginActionType.INVALID_USER,
+          });
+        }
+      })
+      .catch(err => console.log('Error while get login details', err));
+  };
+};
+export default {loginClicked};
