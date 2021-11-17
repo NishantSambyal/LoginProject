@@ -52,6 +52,12 @@ export default (state = initialState, action: any): State => {
         isLoggedIn: true,
       };
     }
+    case LoginActionType.LOGOUT_USER: {
+      return {
+        ...state,
+        isLoggedIn: false,
+      };
+    }
 
     default:
       return state;
