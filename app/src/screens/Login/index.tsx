@@ -1,6 +1,6 @@
-import React, {useReducer, useEffect} from 'react';
-import { bindActionCreators } from 'redux';
-import { useDispatch, useSelector } from 'react-redux';
+import React, {useEffect} from 'react';
+import {bindActionCreators} from 'redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {View, Text, TextInput, TouchableOpacity} from 'react-native';
 import styles from './login.styles';
 import {LoginActions} from '../../redux/actions/loginscreen.actions';
@@ -8,17 +8,19 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import ErrorConst from '../../constants/errorConstants';
 import Constants from '../../constants/constants';
-import {isBlank, showAlert} from '../../utils/utilityFunction';
-import { RootState } from '../../redux/reducers';
+import {showAlert} from '../../utils/utilityFunction';
+import {RootState} from '../../redux/reducers';
 import actionCreaters from '../../redux/actions/loginscreen.actions';
 
-const Login =  () => {
+const Login = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation<NativeStackNavigationProp<any, any>>();
-  const {username, password, error} = useSelector((loginState: RootState) => loginState.loginReducer);
+  const {username, password, error} = useSelector(
+    (loginState: RootState) => loginState.loginReducer,
+  );
 
   const {loginClicked} = bindActionCreators(actionCreaters, dispatch);
-  
+
   useEffect(() => {
     const resetFields = dispatch(LoginActions.resetTextFields);
     switch (error) {
@@ -33,11 +35,11 @@ const Login =  () => {
     }
   }, [error]);
 
-  const onChangeUsername = (username: string) => {
-    dispatch(LoginActions.setUserName(username));
+  const onChangeUsername = (usernameTxt: string) => {
+    dispatch(LoginActions.setUserName(usernameTxt));
   };
-  const onChangePassword = (password: string) => {
-    dispatch(LoginActions.setPassword(password));
+  const onChangePassword = (passwordTxt: string) => {
+    dispatch(LoginActions.setPassword(passwordTxt));
   };
   const onRegisterClick = () => {
     navigation.navigate('Register');
