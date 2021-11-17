@@ -1,19 +1,24 @@
 // In App.js in a new project
 
 import * as React from 'react';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Screens from '../../screens';
-import { RootState } from '../../redux/reducers';
+import {RootState} from '../../redux/reducers';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
+const AppstackEntry = () => {
+  const Stack = createNativeStackNavigator();
+  const Tab = createBottomTabNavigator();
 
-const AppstackEntry: React.FC<any> = props => {
-  const isLoggedIn = useSelector((state: RootState) => state.loginReducer.isLoggedIn)
+  const isLoggedIn = useSelector(
+    (state: RootState) => state.loginReducer.isLoggedIn,
+  );
 
   function AuthStack() {
     return (
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name="Login" component={Screens.Login} />
         <Stack.Screen name="Register" component={Screens.Register} />
       </Stack.Navigator>
@@ -21,14 +26,12 @@ const AppstackEntry: React.FC<any> = props => {
   }
   function HomeStack() {
     return (
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={Screens.Home} />
-      </Stack.Navigator>
+      <Tab.Navigator initialRouteName="Home">
+        <Tab.Screen name="Home" component={Screens.Home} />
+        <Tab.Screen name="Logout" component={Screens.Logout} />
+      </Tab.Navigator>
     );
   }
-
-  const Stack = createNativeStackNavigator();
-
   return (
     <NavigationContainer>
       {!isLoggedIn ? <AuthStack /> : <HomeStack />}

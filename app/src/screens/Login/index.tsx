@@ -9,6 +9,7 @@ import {useNavigation} from '@react-navigation/native';
 import ErrorConst from '../../constants/errorConstants';
 import Constants from '../../constants/constants';
 import {showAlert} from '../../utils/utilityFunction';
+import Button from '../../components/Button';
 import {RootState} from '../../redux/reducers';
 import actionCreaters from '../../redux/actions/loginscreen.actions';
 
@@ -51,28 +52,29 @@ const Login = () => {
 
   return (
     <View style={styles.mainContainer}>
-      <Text style={styles.heading}>Welcome to Login App</Text>
+      <Text style={styles.heading}>{Constants.WELCOME_TO_LOGIN_APP}</Text>
       <TextInput
         style={styles.textUsername}
-        placeholder={'Enter Username'}
+        placeholder={Constants.USER_NAME}
         value={username}
         onChangeText={e => onChangeUsername(e)}
       />
       <TextInput
         style={styles.textPassword}
-        placeholder={'Enter Password'}
+        placeholder={Constants.PASSWORD}
         secureTextEntry
         value={password}
         onChangeText={val => onChangePassword(val)}
       />
-      <TouchableOpacity style={styles.loginButton} onPress={onLoginClick}>
-        <Text style={styles.loginText}>Login</Text>
-      </TouchableOpacity>
-
+      <Button
+        style={styles.loginButton}
+        title={Constants.LOGIN}
+        onPress={onLoginClick}
+      />
       <View style={styles.accountCreateWrapper}>
         <Text style={styles.greyText}>Dont have an account?</Text>
         <TouchableOpacity onPress={onRegisterClick}>
-          <Text> Click to Register</Text>
+          <Text>{Constants.CLICK_TO_REGISTER}</Text>
         </TouchableOpacity>
       </View>
     </View>

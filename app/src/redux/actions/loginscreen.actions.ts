@@ -13,9 +13,10 @@ export enum LoginActionType {
   VALID_USER = 'VALID_USER',
   INVALID_USER = 'INVALID_USER',
   LOGIN_CLICKED = 'LOGIN_CLICKED',
+  LOGOUT_USER = 'LOGOUT_USER',
 }
 
-export class LoginActions {xs
+export class LoginActions {
   static setUserName(username: string) {
     return {
       type: LoginActionType.USERNAME_ONTEXT_CHANGE,
@@ -33,6 +34,11 @@ export class LoginActions {xs
       type: LoginActionType.RESET_TEXT_FIELDS,
     };
   }
+  static logoutClicked() {
+    return {
+      type: LoginActionType.LOGOUT_USER,
+    };
+  }
 }
 const loginClicked = (userInfo: Person) => {
   return (dispatch: any) => {
@@ -47,6 +53,7 @@ const loginClicked = (userInfo: Person) => {
             userInfo.password,
           );
           if (user) {
+            dispatch({type: LoginActionType.RESET_TEXT_FIELDS});
             dispatch({
               type: LoginActionType.VALID_USER,
               payload: user,
