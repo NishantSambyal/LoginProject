@@ -55,49 +55,47 @@ export class RegisterActions {
       payload: designation,
     };
   }
-}
-const resetTextFields = () => {
-  return (dispatch: any) => {
-    dispatch({
-      type: RegisterActionType.RESET_TEXT_FIELDS,
-    });
-    dispatch({
-      type: RegisterActionType.USER_REGISTERED_ACKNOWLEDGED,
-    });
-  };
-};
-
-const registerClicked = (userInfo: Person) => {
-  return (dispatch: any) => {
-    getAsyncStorage(LOGGED_IN_USER)
-      .then(data => {
-        if (data) {
-          const userExist = includeInArray(
-            JSON.parse(data),
-            'username',
-            userInfo.username,
-          );
-          if (!userExist) {
-            let users = JSON.parse(data);
-            users.push(userInfo);
-            setAsyncStorage(LOGGED_IN_USER, JSON.stringify(users));
+  static registerClicked(userInfo: Person) {
+    return (dispatch: any) => {
+      getAsyncStorage(LOGGED_IN_USER)
+        .then(data => {
+          if (data) {
+            const userExist = includeInArray(
+              JSON.parse(data),
+              'username',
+              userInfo.username,
+            );
+            if (!userExist) {
+              let users = JSON.parse(data);
+              users.push(userInfo);
+              setAsyncStorage(LOGGED_IN_USER, JSON.stringify(users));
+              dispatch({
+                type: RegisterActionType.USER_REGISTERED_SUCCESS,
+              });
+            } else {
+              dispatch({
+                type: RegisterActionType.USER_ALREADY_REGISTERED,
+                payload: userInfo,
+              });
+            }
+          } else {
+            setAsyncStorage(LOGGED_IN_USER, JSON.stringify([userInfo]));
             dispatch({
               type: RegisterActionType.USER_REGISTERED_SUCCESS,
             });
-          } else {
-            dispatch({
-              type: RegisterActionType.USER_ALREADY_REGISTERED,
-              payload: userInfo,
-            });
           }
-        } else {
-          setAsyncStorage(LOGGED_IN_USER, JSON.stringify([userInfo]));
-          dispatch({
-            type: RegisterActionType.USER_REGISTERED_SUCCESS,
-          });
-        }
-      })
-      .catch(err => console.log('Error in registering user function', err));
-  };
-};
-export default {registerClicked, resetTextFields};
+        })
+        .catch(err => console.log('Error in registering user function', err));
+    };
+  }
+  static resetTextFields() {
+    return (dispatch: any) => {
+      dispatch({
+        type: RegisterActionType.RESET_TEXT_FIELDS,
+      });
+      dispatch({
+        type: RegisterActionType.USER_REGISTERED_ACKNOWLEDGED,
+      });
+    };
+  }
+}

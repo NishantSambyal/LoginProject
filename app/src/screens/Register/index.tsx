@@ -1,13 +1,11 @@
 import React, {useEffect} from 'react';
 import {View, Text, TextInput, TouchableOpacity} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {bindActionCreators} from 'redux';
 import Constants from '../../constants/constants';
 import styles from './register.styles';
 import {showAlert} from '../../utils/utilityFunction';
 import {RootState} from '../../redux/reducers';
 import {RegisterActions} from '../../redux/actions/register.actions';
-import actionCreaters from '../../redux/actions/register.actions';
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -20,10 +18,6 @@ const Register = () => {
     userRegistered,
     userRegisteredError,
   } = useSelector((state: RootState) => state.registerReducer);
-  const {registerClicked, resetTextFields} = bindActionCreators(
-    actionCreaters,
-    dispatch,
-  );
 
   const onChangeUsername = (usernameTxt: string) => {
     dispatch(RegisterActions.setUserName(usernameTxt));
@@ -42,18 +36,21 @@ const Register = () => {
   };
   const onRegisterClick = () => {
     const userInfo = {username, password, confirmPassword, name, designation};
-    registerClicked(userInfo);
+    dispatch(RegisterActions.registerClicked(userInfo));
+  };
+  const reset = () => {
+    dispatch(RegisterActions.resetTextFields());
   };
 
   useEffect(() => {
     if (userRegistered) {
-      showAlert(Constants.USER_REGISTER_SUCCESSFULLY, resetTextFields);
+      showAlert(Constants.USER_REGISTER_SUCCESSFULLY, reset);
     }
   }, [userRegistered]);
 
   useEffect(() => {
     if (userRegisteredError) {
-      showAlert(Constants.USER_ALREADY_REGISTERED, resetTextFields);
+      showAlert(Constants.USER_ALREADY_REGISTERED, reset);
     }
   }, [userRegisteredError]);
 

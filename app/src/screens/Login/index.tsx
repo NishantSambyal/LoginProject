@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react';
-import {bindActionCreators} from 'redux';
 import {useDispatch, useSelector} from 'react-redux';
 import {View, Text, TextInput, TouchableOpacity} from 'react-native';
 import styles from './login.styles';
@@ -11,7 +10,6 @@ import Constants from '../../constants/constants';
 import {showAlert} from '../../utils/utilityFunction';
 import Button from '../../components/Button';
 import {RootState} from '../../redux/reducers';
-import actionCreaters from '../../redux/actions/loginscreen.actions';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -19,8 +17,6 @@ const Login = () => {
   const {username, password, error} = useSelector(
     (loginState: RootState) => loginState.loginReducer,
   );
-
-  const {loginClicked} = bindActionCreators(actionCreaters, dispatch);
 
   useEffect(() => {
     const resetFields = dispatch(LoginActions.resetTextFields);
@@ -47,7 +43,7 @@ const Login = () => {
   };
   const onLoginClick = () => {
     const userInfo = {username, password};
-    loginClicked(userInfo);
+    dispatch(LoginActions.loginClicked(userInfo));
   };
 
   return (
