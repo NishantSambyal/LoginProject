@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {View, Text, TextInput, TouchableOpacity} from 'react-native';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import styles from './login.styles';
 import {LoginActions} from '../../redux/actions/loginscreen.actions';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
@@ -47,33 +48,35 @@ const Login = () => {
   };
 
   return (
-    <View style={styles.mainContainer}>
-      <Text style={styles.heading}>{Constants.WELCOME_TO_LOGIN_APP}</Text>
-      <TextInput
-        style={styles.textUsername}
-        placeholder={Constants.USER_NAME}
-        value={username}
-        onChangeText={e => onChangeUsername(e)}
-      />
-      <TextInput
-        style={styles.textPassword}
-        placeholder={Constants.PASSWORD}
-        secureTextEntry
-        value={password}
-        onChangeText={val => onChangePassword(val)}
-      />
-      <Button
-        style={styles.loginButton}
-        title={Constants.LOGIN}
-        onPress={onLoginClick}
-      />
-      <View style={styles.accountCreateWrapper}>
-        <Text style={styles.greyText}>Dont have an account?</Text>
-        <TouchableOpacity onPress={onRegisterClick}>
-          <Text>{Constants.CLICK_TO_REGISTER}</Text>
-        </TouchableOpacity>
+    <KeyboardAwareScrollView contentContainerStyle={styles.mainContainer}>
+      <View style={styles.mainContainer}>
+        <Text style={styles.heading}>{Constants.WELCOME_TO_LOGIN_APP}</Text>
+        <TextInput
+          style={styles.textUsername}
+          placeholder={Constants.USER_NAME}
+          value={username}
+          onChangeText={e => onChangeUsername(e)}
+        />
+        <TextInput
+          style={styles.textPassword}
+          placeholder={Constants.PASSWORD}
+          secureTextEntry
+          value={password}
+          onChangeText={val => onChangePassword(val)}
+        />
+        <Button
+          style={styles.loginButton}
+          title={Constants.LOGIN}
+          onPress={onLoginClick}
+        />
+        <View style={styles.accountCreateWrapper}>
+          <Text style={styles.greyText}>Dont have an account?</Text>
+          <TouchableOpacity onPress={onRegisterClick}>
+            <Text>{Constants.CLICK_TO_REGISTER}</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </KeyboardAwareScrollView>
   );
 };
 

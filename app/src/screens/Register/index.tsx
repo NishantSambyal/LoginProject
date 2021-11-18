@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import {View, Text, TextInput, TouchableOpacity} from 'react-native';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useDispatch, useSelector} from 'react-redux';
 import Constants from '../../constants/constants';
 import styles from './register.styles';
@@ -56,44 +57,46 @@ const Register = () => {
   }, [userRegisteredError, dispatch]);
 
   return (
-    <View style={styles.mainContainer}>
-      <Text style={styles.heading}>Welcome to Registration Screen</Text>
-      <TextInput
-        style={styles.textUsername}
-        placeholder={'Username'}
-        value={username}
-        onChangeText={e => onChangeUsername(e)}
-      />
-      <TextInput
-        style={styles.textPassword}
-        placeholder={'Password'}
-        secureTextEntry
-        value={password}
-        onChangeText={val => onChangePassword(val)}
-      />
-      <TextInput
-        style={styles.textPassword}
-        placeholder={'Confirm Password'}
-        secureTextEntry
-        value={confirmPassword}
-        onChangeText={val => onChangeConfirmPassword(val)}
-      />
-      <TextInput
-        style={styles.textUsername}
-        placeholder={'Name'}
-        value={name}
-        onChangeText={e => onChangeName(e)}
-      />
-      <TextInput
-        style={styles.textUsername}
-        placeholder={'Designation'}
-        value={designation}
-        onChangeText={e => onChangeDesignation(e)}
-      />
-      <TouchableOpacity style={styles.loginButton} onPress={onRegisterClick}>
-        <Text style={styles.loginText}>Register</Text>
-      </TouchableOpacity>
-    </View>
+    <KeyboardAwareScrollView extraHeight={160}>
+      <View style={styles.mainContainer}>
+        <Text style={styles.heading}>Welcome to Registration Screen</Text>
+        <TextInput
+          style={styles.textUsername}
+          placeholder={'Username'}
+          value={username}
+          onChangeText={e => onChangeUsername(e)}
+        />
+        <TextInput
+          style={styles.textPassword}
+          placeholder={'Password'}
+          secureTextEntry
+          value={password}
+          onChangeText={val => onChangePassword(val)}
+        />
+        <TextInput
+          style={styles.textPassword}
+          placeholder={'Confirm Password'}
+          secureTextEntry
+          value={confirmPassword}
+          onChangeText={val => onChangeConfirmPassword(val)}
+        />
+        <TextInput
+          style={styles.textPassword}
+          placeholder={'Name'}
+          value={name}
+          onChangeText={e => onChangeName(e)}
+        />
+        <TextInput
+          style={styles.textPassword}
+          placeholder={'Designation'}
+          value={designation}
+          onChangeText={e => onChangeDesignation(e)}
+        />
+        <TouchableOpacity style={styles.loginButton} onPress={onRegisterClick}>
+          <Text style={styles.loginText}>Register</Text>
+        </TouchableOpacity>
+      </View>
+    </KeyboardAwareScrollView>
   );
 };
 

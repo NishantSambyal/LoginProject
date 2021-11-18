@@ -1,5 +1,8 @@
 import {RegisterActionType} from '../../actions/register.actions';
-
+interface Action {
+  type: string;
+  payload?: string | object;
+}
 interface State {
   username: string;
   password: string;

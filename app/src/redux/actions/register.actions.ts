@@ -1,6 +1,7 @@
 import {setAsyncStorage, getAsyncStorage} from '../../utils/asyncStorage';
 import {LOGGED_IN_USER} from '../../constants/asyncKeys';
-import {searchUser, includeInArray} from '../../utils/utilityFunction';
+import {includeInArray} from '../../utils/utilityFunction';
+import {Dispatch} from 'redux';
 
 export enum RegisterActionType {
   USERNAME_ONTEXT_CHANGE = 'USERNAME_ONTEXT_CHANGE',
@@ -56,7 +57,7 @@ export class RegisterActions {
     };
   }
   static registerClicked(userInfo: Person) {
-    return (dispatch: any) => {
+    return (dispatch: Dispatch) => {
       getAsyncStorage(LOGGED_IN_USER)
         .then(data => {
           if (data) {
@@ -89,7 +90,7 @@ export class RegisterActions {
     };
   }
   static resetTextFields() {
-    return (dispatch: any) => {
+    return (dispatch: Dispatch) => {
       dispatch({
         type: RegisterActionType.RESET_TEXT_FIELDS,
       });
