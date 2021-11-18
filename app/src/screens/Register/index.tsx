@@ -38,21 +38,22 @@ const Register = () => {
     const userInfo = {username, password, confirmPassword, name, designation};
     dispatch(RegisterActions.registerClicked(userInfo));
   };
-  const reset = () => {
-    dispatch(RegisterActions.resetTextFields());
-  };
 
   useEffect(() => {
     if (userRegistered) {
-      showAlert(Constants.USER_REGISTER_SUCCESSFULLY, reset);
+      showAlert(Constants.USER_REGISTER_SUCCESSFULLY, () =>
+        dispatch(RegisterActions.resetTextFields()),
+      );
     }
-  }, [userRegistered]);
+  }, [userRegistered, dispatch]);
 
   useEffect(() => {
     if (userRegisteredError) {
-      showAlert(Constants.USER_ALREADY_REGISTERED, reset);
+      showAlert(Constants.USER_ALREADY_REGISTERED, () =>
+        dispatch(RegisterActions.resetTextFields()),
+      );
     }
-  }, [userRegisteredError]);
+  }, [userRegisteredError, dispatch]);
 
   return (
     <View style={styles.mainContainer}>
